@@ -1,0 +1,12 @@
+import { chromium } from 'playwright';
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: 1440, height: 900 } });
+await p.goto('https://understudy-web-259946930410.asia-south1.run.app', { waitUntil: 'domcontentloaded' });
+await p.waitForTimeout(7000);
+const t = (await p.locator('body').innerText()).replace(/\s+/g, ' ');
+const has = n => t.includes(n);
+console.log('Alex present:', has('Alex'), '| Sam present:', has(' Sam '));
+console.log('Ranjit:', has('Ranjit'), '| Matthew:', has('Matthew'), '| Priya:', has('Priya'));
+console.log('transcript preview:', t.slice(0, 320));
+await p.screenshot({ path: `${process.env.HOME}/Downloads/Understudy-DryRun-Hosted.png` });
+await b.close();

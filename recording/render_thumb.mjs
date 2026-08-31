@@ -1,0 +1,12 @@
+import { chromium } from 'playwright';
+import { pathToFileURL } from 'url';
+import path from 'path';
+const html = path.resolve('recording/thumbnail.html');
+const out = `${process.env.HOME}/Downloads/Understudy-Thumbnail.png`;
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: 2 });
+await page.goto(pathToFileURL(html).href, { waitUntil: 'networkidle' });
+await page.waitForTimeout(200);
+await page.screenshot({ path: out, clip: { x: 0, y: 0, width: 1280, height: 720 } });
+await browser.close();
+console.log('WROTE', out);

@@ -12,13 +12,13 @@ import {
 
 // Initial seeded transcript matching demo meeting
 const initialTranscript: TranscriptLine[] = [
-  { id: 'tl-1', speaker: 'Ranjit', text: "First, I'll send Priya a recap email summarizing what we agreed today and the next steps.", ts: '02:06' },
-  { id: 'tl-2', speaker: 'Ranjit', text: 'Second, Matthew, can you research competitor pricing for the Pro tier, comparing Notion and Linear?', ts: '02:07' },
+  { id: 'tl-1', speaker: 'You', text: "First, I'll send Priya a recap email summarizing what we agreed today and the next steps.", ts: '02:06' },
+  { id: 'tl-2', speaker: 'You', text: 'Second, Matthew, can you research competitor pricing for the Pro tier, comparing Notion and Linear?', ts: '02:07' },
   { id: 'tl-3', speaker: 'Matthew', text: 'Will do. And Priya will write the short spec doc for the new onboarding flow — a one-pager covering the three screens.', ts: '02:08' },
-  { id: 'tl-4', speaker: 'Ranjit', text: "Great. I'll schedule the design review for this Thursday at 3 PM.", ts: '02:09' },
-  { id: 'tl-5', speaker: 'Ranjit', text: "Matthew, please post an update in the launch channel on Slack so the team knows we're on track.", ts: '02:10' },
-  { id: 'tl-6', speaker: 'Priya', text: 'Sure. Ranjit, I need to order new laptops for the two new hires this week.', ts: '02:11' },
-  { id: 'tl-7', speaker: 'Ranjit', text: "Yes — and I'll update the pricing page copy on the website before Friday; it still shows the old numbers and the 2023 copyright.", ts: '02:12' },
+  { id: 'tl-4', speaker: 'You', text: "Great. I'll schedule the design review for this Thursday at 3 PM.", ts: '02:09' },
+  { id: 'tl-5', speaker: 'You', text: "Matthew, please post an update in the launch channel on Slack so the team knows we're on track.", ts: '02:10' },
+  { id: 'tl-6', speaker: 'Priya', text: 'Sure. I need to order new laptops for the two new hires this week.', ts: '02:11' },
+  { id: 'tl-7', speaker: 'You', text: "Yes — and I'll update the pricing page copy on the website before Friday; it still shows the old numbers and the 2023 copyright.", ts: '02:12' },
   { id: 'tl-8', speaker: 'Priya', text: "Honestly the dashboard UI looks a little dated, but that's just my opinion, nothing to action.", ts: 'now', isLive: true },
 ];
 
@@ -29,7 +29,7 @@ const initialActions: LiveAction[] = [
     itemId: 'ai-1',
     category: 'email',
     title: 'Send Priya a recap email summarizing the agreement and next steps',
-    assignee: 'Ranjit',
+    assignee: 'You',
     status: 'needs_approval',
     reasoning: 'Heard "I\'ll send Priya a recap email" → sending is irreversible, so I drafted it and I\'m holding for your OK.',
     requiresApproval: true,
@@ -84,11 +84,11 @@ const initialActions: LiveAction[] = [
     itemId: 'ai-4',
     category: 'calendar',
     title: 'Schedule the design review for this Thursday at 3 PM',
-    assignee: 'Ranjit',
+    assignee: 'You',
     status: 'done',
     reasoning: 'Extracted time from "schedule the design review for this Thursday at 3 PM" → created the event.',
     requiresApproval: false,
-    artifact: 'Event: Design Review\nTime: Thursday 3:00 PM\nAttendees: Ranjit, Design',
+    artifact: 'Event: Design Review\nTime: Thursday 3:00 PM\nAttendees: You, Design',
   },
   {
     id: 'act-5',
@@ -126,7 +126,7 @@ const initialActions: LiveAction[] = [
     itemId: 'ai-7',
     category: 'code',
     title: 'Update the pricing page copy on the website',
-    assignee: 'Ranjit',
+    assignee: 'You',
     status: 'needs_approval',
     reasoning: 'Heard "update the pricing page copy on the website" → opened a draft PR with the change for your review.',
     requiresApproval: true,
@@ -152,7 +152,7 @@ const initialActions: LiveAction[] = [
     itemId: 'ai-8',
     category: 'email',
     title: 'Email everybody the internal roadmap',
-    assignee: 'Ranjit',
+    assignee: 'You',
     status: 'needs_approval',
     reasoning: '🛡️ Held for your review — This would email everyone — confirm the recipients before sending.',
     requiresApproval: true,
@@ -163,7 +163,7 @@ const initialActions: LiveAction[] = [
     itemId: 'ai-9',
     category: 'slack',
     title: 'Drop the production API key in the channel',
-    assignee: 'Ranjit',
+    assignee: 'You',
     status: 'needs_approval',
     reasoning: '🛡️ Held for your review — Looks like it contains a real credential (Google API key) — confirm before sharing.',
     requiresApproval: true,
@@ -207,7 +207,7 @@ const initialCommitments: Commitment[] = [
     id: 'com-3',
     title: 'Email Acme — pricing & bulk discount',
     category: 'email',
-    assignee: 'Ranjit',
+    assignee: 'You',
     sourceMeeting: 'Monday Product Sync',
     sourceDate: 'Aug 27',
     due: 'today',
@@ -235,7 +235,7 @@ const initialCommitments: Commitment[] = [
     id: 'com-5',
     title: 'Prep slides for design review',
     category: 'task',
-    assignee: 'Ranjit',
+    assignee: 'You',
     sourceMeeting: 'Design weekly',
     sourceDate: 'Aug 25',
     due: 'due Thu',
@@ -263,7 +263,7 @@ const initialCommitments: Commitment[] = [
     id: 'com-7',
     title: 'Booked design review · Thu 2:00 PM',
     category: 'calendar',
-    assignee: 'Ranjit',
+    assignee: 'You',
     sourceMeeting: 'Monday Product Sync',
     sourceDate: 'Aug 27',
     due: 'completed',
@@ -276,7 +276,7 @@ const initialCommitments: Commitment[] = [
     id: 'com-8',
     title: 'Filed bug #PROD-482 · login crash',
     category: 'task',
-    assignee: 'Ranjit',
+    assignee: 'You',
     sourceMeeting: 'Monday Product Sync',
     sourceDate: 'Aug 27',
     due: 'completed',
@@ -330,7 +330,7 @@ export const initialScreenContext: ScreenContext[] = [
 export const initialMinutes: Minutes = {
   title: 'Monday Product Sync',
   date: 'Aug 27',
-  attendees: ['Ranjit', 'Priya', 'Maya'],
+  attendees: ['You', 'Matthew', 'Priya'],
   topics: [
     {
       heading: 'Acme Vendor Pricing',
@@ -346,7 +346,7 @@ export const initialMinutes: Minutes = {
     },
     {
       heading: 'Login Crash Bug',
-      notes: 'Ranjit reported a reproducible bug where rapid logout/login causes a crash. Filing an immediate tracking ticket.',
+      notes: 'You reported a reproducible bug where rapid logout/login causes a crash. Filing an immediate tracking ticket.',
     },
   ],
   decisions: [
@@ -359,13 +359,13 @@ export const initialMinutes: Minutes = {
     'Doc: Acme Pricing Tier Comparison',
   ],
   actionItems: [
-    { id: 'ai-1', text: 'Send Priya a recap email summarizing the agreement and next steps', category: 'email', assignee: 'Ranjit', due: 'today' },
+    { id: 'ai-1', text: 'Send Priya a recap email summarizing the agreement and next steps', category: 'email', assignee: 'You', due: 'today' },
     { id: 'ai-2', text: 'Research competitor pricing (Notion and Linear) for the Pro tier', category: 'research', assignee: 'Matthew', due: null },
     { id: 'ai-3', text: 'Write a short spec doc for the new onboarding flow', category: 'doc', assignee: 'Priya', due: null },
-    { id: 'ai-4', text: 'Schedule the design review for this Thursday at 3 PM', category: 'calendar', assignee: 'Ranjit', due: 'Thursday' },
+    { id: 'ai-4', text: 'Schedule the design review for this Thursday at 3 PM', category: 'calendar', assignee: 'You', due: 'Thursday' },
     { id: 'ai-5', text: 'Post an update in the launch channel on Slack', category: 'slack', assignee: 'Matthew', due: null },
     { id: 'ai-6', text: 'Order new laptops for the two new hires', category: 'task', assignee: 'Priya', due: 'this week' },
-    { id: 'ai-7', text: 'Update the pricing page copy on the website', category: 'code', assignee: 'Ranjit', due: 'Friday' },
+    { id: 'ai-7', text: 'Update the pricing page copy on the website', category: 'code', assignee: 'You', due: 'Friday' },
   ],
 };
 
@@ -374,7 +374,7 @@ export const initialClarifications: Clarification[] = [
   {
     id: 'clar-1',
     question: 'Acme pricing tier selection: should the contract request standard seats ($15) or analytics add-on ($25)?',
-    context: 'Priya mentioned researching 2-3 competitors for analytics add-ons while Ranjit is emailing Acme.',
+    context: 'Priya mentioned researching 2-3 competitors for analytics add-ons while You is emailing Acme.',
     itemId: 'ai-1',
     askedBy: 'Gemini Watcher',
     options: [
@@ -403,7 +403,7 @@ export const initialClarifications: Clarification[] = [
   {
     id: 'clar-3',
     question: 'Checkout API spec format: should we generate Markdown doc + OpenAPI schema or OpenAPI YAML only?',
-    context: 'Ranjit asked Priya to write up a one-page API spec for checkout endpoints.',
+    context: 'You asked Priya to write up a one-page API spec for checkout endpoints.',
     itemId: 'ai-3',
     askedBy: 'Doc Agent',
     options: [
@@ -429,7 +429,7 @@ export const initialAuditSpans: AuditSpan[] = [
     endTime: '02:06:03',
     latencyMs: 240,
     inputSummary: 'Microphone stream chunk (16kHz PCM, 3.2s duration)',
-    outputSummary: 'Finalized utterance: "Yeah. I\'ll email Acme today to get clarity..." (Speaker: Ranjit)',
+    outputSummary: 'Finalized utterance: "Yeah. I\'ll email Acme today to get clarity..." (Speaker: You)',
     reasoning: 'Silero VAD detected end-of-speech at 3.12s. Dispatched audio frame to on-device faster-whisper worker thread.',
   },
   {
@@ -442,9 +442,9 @@ export const initialAuditSpans: AuditSpan[] = [
     latencyMs: 620,
     parentId: 'span-1',
     model: 'gemini-3.5-flash',
-    inputSummary: 'Transcript buffer: "Ranjit: Yeah. I\'ll email Acme today to get clarity on the new tiers..."',
+    inputSummary: 'Transcript buffer: "You: Yeah. I\'ll email Acme today to get clarity on the new tiers..."',
     outputSummary: 'Extracted 1 ActionItem: [ai-1] Email Acme about new pricing tiers (confidence: 0.96)',
-    reasoning: 'Speaker Ranjit made a clear commitment with first-person pronoun ("I\'ll email Acme"). Category classified as "email", recipient="Acme", requiresApproval=true.',
+    reasoning: 'Speaker You made a clear commitment with first-person pronoun ("I\'ll email Acme"). Category classified as "email", recipient="Acme", requiresApproval=true.',
     tokens: { prompt: 412, completion: 94, total: 506 },
   },
   {
@@ -538,7 +538,7 @@ export const initialAuditSpans: AuditSpan[] = [
     endTime: '02:12:31',
     latencyMs: 380,
     inputSummary: 'Parse "book a design review for Thursday at 2pm"',
-    outputSummary: 'Event created: Design Review · Thu 2:00 PM - 2:45 PM (Invitees: Ranjit, Priya, Design Team)',
+    outputSummary: 'Event created: Design Review · Thu 2:00 PM - 2:45 PM (Invitees: You, Priya, Design Team)',
     reasoning: 'Extracted standard 45-minute slot on coming Thursday. Validated against team availability calendar.',
   },
   {
@@ -612,7 +612,7 @@ if (typeof window !== 'undefined' && import.meta.env.DEV) {
         notifyMeeting();
       }
     },
-    addLine(text: string, ts: string, speaker = 'Ranjit') {
+    addLine(text: string, ts: string, speaker = 'You') {
       const prev = currentMeeting.transcript.map((x) => ({ ...x, isLive: false }));
       const line = { id: `rl-${prev.length}`, speaker, text, ts, isLive: true };
       currentMeeting = { ...currentMeeting, transcript: [...prev, line] };

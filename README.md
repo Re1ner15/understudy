@@ -11,6 +11,27 @@ Built for the **All Things Agentic Hackathon** on **Gemini 3.5 Flash + Google AD
 - Hosted app: https://understudy-web-259946930410.asia-south1.run.app
 - Agent backend: https://understudy-agent-259946930410.asia-south1.run.app
 
+The hosted dashboard is a **live** view of the deployed system (real Firestore, real backend, real GitHub/Plane/Slack actions, one-tap approvals). It comes pre-populated with a demo meeting so you can explore immediately.
+
+### Transcribe your own voice into the hosted dashboard
+
+A browser cannot access your microphone for our on-device transcriber, so live capture runs from a small local listener. Audio never leaves your machine; only the derived transcript text is sent onward. To drive the hosted dashboard with your own speech:
+
+```bash
+git clone https://github.com/Re1ner15/understudy && cd understudy
+brew install portaudio                                            # mic support (macOS)
+python3.11 -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+
+# Point the local listener at the HOSTED backend and the demo meeting:
+MEETING_ID=demo-meeting \
+AGENT_SERVER_URL=https://understudy-agent-259946930410.asia-south1.run.app \
+AUDIO_DEVICE="MacBook Pro Microphone" \
+python listener/listen.py --manual
+```
+
+Then open the hosted app, click **Record**, and start talking (try: "I'll email the team a recap, and let's book a design review for Thursday"). Your words appear in the transcript and Understudy acts on them live. Click **Pause** to stop, **Conclude meeting** to generate minutes. Prefer to run everything locally instead? See "Run the live pipeline (with a mic)" below.
+
 ---
 
 ## Architecture

@@ -1,0 +1,18 @@
+import { chromium } from 'playwright';
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: 1440, height: 900 } });
+const errors = [];
+p.on('console', m => { if (m.type()==='error') errors.push(m.text().slice(0,140)); });
+await p.goto('https://understudy-web-259946930410.asia-south1.run.app', { waitUntil: 'domcontentloaded' });
+await p.waitForTimeout(9000);
+const t = (await p.locator('body').innerText()).replace(/\s+/g,' ');
+const check = s => t.includes(s);
+console.log('reads REAL board:');
+console.log('  pricing page card :', check('pricing page'));
+console.log('  guardrail held    :', check('Held for your review') || check('no auto-action') || check('production API key'));
+console.log('  research card     :', check('Research competitor pricing'));
+console.log('  names Ranjit/Matthew/Priya:', check('Ranjit'), check('Matthew'), check('Priya'));
+console.log('  Alex/Sam gone     :', !check('Alex') && !check(' Sam '));
+console.log('  console errors    :', errors.length? errors.slice(0,5):'none');
+await p.screenshot({ path: `${process.env.HOME}/Downloads/Understudy-Hosted-Live.png`, fullPage:false });
+await b.close();
