@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Understudy — Companion (in-meeting)</title>
+<style>
+  :root{
+    --panel:#ffffff; --line:#e3e6df; --chip:#f1f3ee;
+    --txt:#191c18; --muted:#61665d; --faint:#969c90;
+    --accent:#0f9d6b; --accent-soft:#0f9d6b14; --accent-soft2:#0f9d6b40;
+    --run:#3b82f6; --run-soft:#3b82f614; --done:#16a34a; --amber:#b7791f; --amber-bg:#faf1dd; --amber-bd:#d9a03e88;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Inter,-apple-system,"SF Pro Text",system-ui,sans-serif;height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased}
+  /* ---- meeting backdrop (Google Meet-ish) ---- */
+  .meet{position:absolute;inset:0;background:#202124;display:flex;flex-direction:column}
+  .stage{flex:1;display:flex;gap:16px;align-items:center;justify-content:center;padding:34px}
+  .tile{width:440px;height:300px;border-radius:14px;background:linear-gradient(160deg,#3c4043,#2b2d30);position:relative;overflow:hidden;display:grid;place-items:center}
+  .tile .face{width:96px;height:96px;border-radius:50%;display:grid;place-items:center;font-size:34px;font-weight:600;color:#fff}
+  .tile.a .face{background:#4b8ff0}.tile.s .face{background:#e0794e}
+  .tile .name{position:absolute;left:14px;bottom:12px;color:#fff;font-size:14px;font-weight:500;background:#00000055;padding:3px 10px;border-radius:7px}
+  .tile .mic{position:absolute;right:12px;bottom:12px;width:26px;height:26px;border-radius:50%;background:#00000055;display:grid;place-items:center}
+  .bar{height:76px;background:#171717;display:flex;align-items:center;justify-content:center;gap:14px}
+  .ctl{width:46px;height:46px;border-radius:50%;background:#3c4043;display:grid;place-items:center;color:#e8eaed}
+  .ctl.end{background:#ea4335;width:60px;border-radius:24px}
+  .clock{position:absolute;left:20px;bottom:26px;color:#9aa0a6;font-size:13px;font-variant-numeric:tabular-nums}
+  /* ---- floating companion ---- */
+  .companion{position:absolute;top:22px;right:22px;width:328px;background:var(--panel);border:1px solid var(--line);
+    border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.35),0 2px 8px rgba(0,0,0,.2);overflow:hidden}
+  .ch{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line)}
+  .ch .dot{width:15px;height:15px;border-radius:5px;background:linear-gradient(135deg,#0f9d6b,#37c795)}
+  .ch .nm{font-weight:650;font-size:13.5px;color:var(--txt);letter-spacing:-.01em}
+  .ch .live{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+  .ch .live .rec{width:7px;height:7px;border-radius:50%;background:#ef5350;animation:pulse 1.6s infinite}
+  .ch .min{width:20px;height:20px;border-radius:6px;display:grid;place-items:center;color:var(--faint);margin-left:4px}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 #ef535055}70%{box-shadow:0 0 0 6px #ef535000}100%{box-shadow:0 0 0 0 #ef535000}}
+  /* now-working row */
+  .now{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--run-soft)}
+  .spin{width:15px;height:15px;border-radius:50%;border:2px solid var(--run);border-right-color:transparent;animation:spin .8s linear infinite;flex:none}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .now .t{font-size:13px;color:var(--txt)}.now .t b{font-weight:600}
+  /* recent list */
+  .recent{padding:6px 14px 10px}
+  .r{display:flex;align-items:center;gap:9px;padding:6px 0;font-size:12.5px;color:var(--muted)}
+  .r .ic{width:16px;height:16px;flex:none;display:grid;place-items:center}
+  .r .ic.done{color:var(--done)}.r .ic.queue{color:var(--faint)}
+  .r b{color:var(--txt);font-weight:550}
+  .r .tm{margin-left:auto;font-size:11px;color:var(--faint)}
+  /* approval */
+  .appr{margin:2px 12px 12px;padding:11px 12px;background:var(--amber-bg);border:1px solid var(--amber-bd);border-radius:11px}
+  .appr .lab{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+  .appr .q{font-size:13px;color:var(--txt);font-weight:550;margin-bottom:9px}
+  .appr .q span{font-weight:400;color:var(--muted)}
+  .appr .btns{display:flex;gap:7px}
+  .btn{flex:1;font-size:12.5px;font-weight:650;padding:7px 0;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--txt);cursor:pointer;text-align:center;font-family:inherit}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  /* footer */
+  .cf{display:flex;align-items:center;padding:10px 14px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+  .cf a{margin-left:auto;color:var(--accent);text-decoration:none;font-weight:600}
+  /* collapsed pill + toast (secondary states) */
+  .pill{position:absolute;top:22px;right:372px;display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);
+    border-radius:22px;padding:8px 14px;box-shadow:0 8px 24px rgba(0,0,0,.3);font-size:12.5px;color:var(--txt);font-weight:550}
+  .pill .g{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)}
+  .pill .badge{background:var(--amber-bg);color:var(--amber);font-weight:700;font-size:11px;padding:2px 8px;border-radius:12px;border:1px solid var(--amber-bd)}
+  .plabel{position:absolute;top:60px;right:372px;font-size:11px;color:#9aa0a6}
+  .toast{position:absolute;top:372px;right:22px;display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);
+    border-radius:12px;padding:10px 14px;box-shadow:0 8px 24px rgba(0,0,0,.28);font-size:13px;color:var(--txt);font-weight:550}
+  .toast .c{width:18px;height:18px;border-radius:50%;background:var(--done);display:grid;place-items:center}
+  .tlabel{position:absolute;top:418px;right:22px;font-size:11px;color:#9aa0a6}
+</style>
+</head>
+<body>
+  <div class="meet">
+    <div class="stage">
+      <div class="tile a"><div class="face">A</div><div class="name">Alex Chen</div><div class="mic"><svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/><path d="M19 11a7 7 0 0 1-14 0" stroke="#fff" stroke-width="2" fill="none"/></svg></div></div>
+      <div class="tile s"><div class="face">S</div><div class="name">Sam Rivera</div><div class="mic"><svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/><path d="M19 11a7 7 0 0 1-14 0" stroke="#fff" stroke-width="2" fill="none"/></svg></div></div>
+    </div>
+    <div class="clock">Monday Product Sync · 02:14</div>
+    <div class="bar">
+      <div class="ctl"><svg width="20" height="20" viewBox="0 0 24 24" fill="#e8eaed"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/></svg></div>
+      <div class="ctl"><svg width="20" height="20" viewBox="0 0 24 24" fill="#e8eaed"><path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11z"/></svg></div>
+      <div class="ctl end"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M21 15.5c-2.5-2.5-5.8-4-9-4s-6.5 1.5-9 4l2.5 2.5 2-2v-2c1.4-.6 3-.9 4.5-.9s3.1.3 4.5.9v2l2 2z"/></svg></div>
+    </div>
+  </div>
+
+  <!-- collapsed pill state (secondary) -->
+  <div class="pill"><span class="g"></span>Understudy<span class="badge">1 needs you</span></div>
+  <div class="plabel">↑ collapsed state</div>
+
+  <!-- expanded companion (primary) -->
+  <div class="companion">
+    <div class="ch">
+      <div class="dot"></div><div class="nm">Understudy</div>
+      <div class="live"><span class="rec"></span>02:14</div>
+      <div class="min"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14"/></svg></div>
+    </div>
+    <div class="now"><span class="spin"></span><span class="t">Drafting <b>email to Acme</b>…</span></div>
+    <div class="recent">
+      <div class="r"><span class="ic done"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 13 4 4L19 7"/></svg></span><span>Booked <b>design review</b> · Thu 2pm</span><span class="tm">now</span></div>
+      <div class="r"><span class="ic done"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 13 4 4L19 7"/></svg></span><span><b>Research brief</b> ready</span><span class="tm">now</span></div>
+      <div class="r"><span class="ic queue">•</span><span>Notify <b>#frontend</b> · queued</span><span class="tm">Fri</span></div>
+    </div>
+    <div class="appr">
+      <div class="lab"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 2 7v7c0 5 4 8 10 8s10-3 10-8V7z"/></svg>Needs your OK</div>
+      <div class="q">Send email to Acme? <span>bulk-discount ask</span></div>
+      <div class="btns"><button class="btn primary">Approve &amp; send</button><button class="btn">Skip</button></div>
+    </div>
+    <div class="cf">5 actions · 3 done<a href="#">Open dashboard →</a></div>
+  </div>
+
+  <!-- completion toast (secondary) -->
+  <div class="toast"><span class="c"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="m5 13 4 4L19 7"/></svg></span>Design review booked · Thu 2pm</div>
+  <div class="tlabel">↑ completion toast</div>
+</body>
+</html>

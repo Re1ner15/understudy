@@ -1,0 +1,11 @@
+MAYA: Morning everyone, let's keep the standup under ten minutes today. I'll go first. Yesterday I tracked down that intermittent cache failure in the worker pool.
+DAVID: Nice, was it an OOM or a network timeout?
+MAYA: It's a memory leak in the redis connection pool. I will fix the redis caching memory leak on the worker node today so it doesn't crash tonight's batch jobs.
+PRIYA: Awesome. Maya, once you push that fix, can you also update the runbook on cache cluster failover procedures so on-call has the latest steps?
+MAYA: Yep, I'll update the runbook doc by this afternoon.
+DAVID: On my side, I'm reviewing the overall eviction policy changes. Let's schedule an architecture deep dive on Redis eviction policies for Wednesday at 3pm with the backend team.
+PRIYA: Sounds good, put it on the calendar. As for me, the staging deployment is wrapped up and verified. I'll post the updated deployment schedule to the #releases Slack channel right after this call.
+MAYA: Great. Anything blocking anyone?
+DAVID: No blockers for me.
+PRIYA: All clear here too.
+MAYA: Sweet, let's get to work!

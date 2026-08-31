@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Understudy — Light · Sage</title>
+<style>
+  :root{
+    --bg:#f6f7f4; --panel:#ffffff; --seg:#ecefe8; --seg-sh:0 1px 2px rgba(30,40,30,.07);
+    --line:#e3e6df; --chip:#f1f3ee;
+    --txt:#191c18; --muted:#61665d; --faint:#969c90;
+    --brand:linear-gradient(135deg,#0f9d6b,#37c795);
+    --accent:#0f9d6b; --accent-soft:#0f9d6b14; --accent-soft2:#0f9d6b3a; --on-accent:#ffffff;
+    --card-sh:0 1px 2px rgba(20,30,20,.05);
+    --run:#3b82f6; --run-soft:#3b82f614;
+    --done:#16a34a; --done-soft:#16a34a14;
+    --amber:#b7791f; --amber-soft:#b7791f18; --amber-bd:#d9a03e66; --amber-bg:#faf1dd;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:Inter,-apple-system,"SF Pro Text",system-ui,sans-serif;font-size:14px;-webkit-font-smoothing:antialiased;height:100vh;overflow:hidden}
+  .app{display:flex;flex-direction:column;height:100vh}
+  /* top bar */
+  .topbar{display:flex;align-items:center;gap:18px;height:54px;padding:0 22px;border-bottom:1px solid var(--line);background:var(--panel)}
+  .brand{display:flex;align-items:center;gap:9px;font-weight:650;letter-spacing:-.02em}
+  .brand .dot{width:17px;height:17px;border-radius:5px;background:var(--brand)}
+  .seg{display:flex;background:var(--seg);border:1px solid var(--line);border-radius:9px;padding:3px}
+  .seg button{border:0;background:none;color:var(--muted);font-size:13px;font-weight:550;padding:5px 13px;border-radius:6px;cursor:pointer;font-family:inherit}
+  .seg button.on{background:var(--panel);color:var(--txt);box-shadow:var(--seg-sh)}
+  .live{display:flex;align-items:center;gap:7px;margin-left:auto;font-variant-numeric:tabular-nums;font-size:13px;color:var(--txt)}
+  .live .rec{width:8px;height:8px;border-radius:50%;background:#ef5350;animation:pulse 1.6s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 #ef535055}70%{box-shadow:0 0 0 7px #ef535000}100%{box-shadow:0 0 0 0 #ef535000}}
+  /* body */
+  .body{display:grid;grid-template-columns:38% 62%;flex:1;min-height:0}
+  .col{min-height:0;display:flex;flex-direction:column}
+  .col.left{border-right:1px solid var(--line)}
+  .colhead{padding:17px 22px 12px;display:flex;align-items:center;gap:8px}
+  .colhead h2{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);font-weight:650}
+  .colhead .count{margin-left:auto;font-size:12px;color:var(--muted)}
+  /* transcript */
+  .transcript{overflow-y:auto;padding:0 22px 20px;display:flex;flex-direction:column;gap:16px}
+  .line{display:flex;gap:11px}
+  .ava{width:26px;height:26px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:11px;font-weight:650;color:#fff}
+  .ava.a{background:#4b8ff0}.ava.s{background:#e0794e}
+  .line .who{font-weight:650;font-size:13px;margin-bottom:2px}
+  .line .who span{color:var(--faint);font-weight:400;font-size:11px;margin-left:7px}
+  .line .say{color:var(--muted);line-height:1.5}
+  .line.now .say{color:var(--txt)}
+  .line.now{background:var(--accent-soft);margin:0 -12px;padding:9px 12px;border-radius:10px;border-left:2px solid var(--accent)}
+  .typing{display:inline-block;width:7px;height:14px;background:var(--accent);margin-left:3px;vertical-align:-2px;animation:blink 1s steps(2) infinite}
+  @keyframes blink{50%{opacity:0}}
+  /* activity feed */
+  .feed{overflow-y:auto;padding:0 22px 20px;display:flex;flex-direction:column;gap:11px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:14px 15px;box-shadow:var(--card-sh)}
+  .crow{display:flex;gap:12px;align-items:flex-start}
+  .ico{width:32px;height:32px;border-radius:9px;flex:none;display:grid;place-items:center;background:var(--chip);border:1px solid var(--line);color:var(--muted)}
+  .ico svg{width:16px;height:16px}
+  .cmain{flex:1;min-width:0}
+  .cmain .ttl{font-weight:600;line-height:1.35;margin-bottom:5px}
+  .meta{display:flex;align-items:center;gap:9px;color:var(--faint);font-size:12px}
+  .meta .m{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;font-size:9px;font-weight:650;color:#fff}
+  .pill{font-size:11px;font-weight:650;padding:4px 9px;border-radius:20px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+  .pill.done{color:var(--done);background:var(--done-soft)}
+  .pill.run{color:var(--run);background:var(--run-soft)}
+  .pill.queue{color:var(--faint);background:var(--chip)}
+  .pill.appr{color:var(--amber);background:var(--amber-soft)}
+  .pill .d{width:6px;height:6px;border-radius:50%;background:currentColor}
+  .pill.run .d{animation:blink 1.1s steps(2) infinite}
+  .why{font-size:12.5px;color:var(--muted);line-height:1.45;margin-top:10px;padding-left:11px;border-left:2px solid var(--accent-soft2)}
+  .why b{color:var(--txt);font-weight:600}
+  .approve{display:flex;gap:8px;margin-top:11px}
+  .btn{font-size:12px;font-weight:650;padding:7px 13px;border-radius:8px;border:1px solid var(--line);background:var(--chip);color:var(--txt);cursor:pointer;font-family:inherit}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+  .card.pending{border-color:var(--amber-bd);background:var(--amber-bg)}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand"><div class="dot"></div>Understudy</div>
+    <div class="seg"><button class="on">Live meeting</button><button>Commitments</button></div>
+    <div class="live"><span class="rec"></span>LIVE&nbsp;·&nbsp;02:14</div>
+  </div>
+  <div class="body">
+    <div class="col left">
+      <div class="colhead"><h2>Transcript</h2><span class="count">Monday Product Sync</span></div>
+      <div class="transcript">
+        <div class="line"><div class="ava a">A</div><div><div class="who">Alex <span>02:06</span></div><div class="say">Yeah. I'll email Acme today to get clarity on the new tiers and ask if we qualify for a bulk discount.</div></div></div>
+        <div class="line"><div class="ava s">S</div><div><div class="who">Sam <span>02:09</span></div><div class="say">Good. And can you research what two or three competitors charge for a comparable analytics add-on?</div></div></div>
+        <div class="line"><div class="ava a">A</div><div><div class="who">Alex <span>02:12</span></div><div class="say">Right. Can you write up a one-page API spec doc for the checkout endpoints?</div></div></div>
+        <div class="line now"><div class="ava s">S</div><div><div class="who">Sam <span>now</span></div><div class="say">I'll draft it this morning. And let's book a design review for Thursday at 2pm<span class="typing"></span></div></div></div>
+      </div>
+    </div>
+    <div class="col right">
+      <div class="colhead"><h2>What Understudy is doing</h2><span class="count">5 actions · 1 needs you</span></div>
+      <div class="feed">
+
+        <div class="card pending">
+          <div class="crow">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+            <div class="cmain"><div class="ttl">Email Acme about new pricing tiers &amp; bulk discount</div>
+              <div class="meta"><span class="m" style="background:#4b8ff0">A</span>Alex · due today</div></div>
+            <span class="pill appr"><span class="d"></span>Needs approval</span>
+          </div>
+          <div class="why"><b>Why:</b> Alex committed to email the vendor. Sending is irreversible, so I drafted it and I'm holding for your OK.</div>
+          <div class="approve"><button class="btn primary">Approve &amp; send</button><button class="btn">Edit</button><button class="btn">Skip</button></div>
+        </div>
+
+        <div class="card">
+          <div class="crow">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M9 13h7M9 17h7"/></svg></div>
+            <div class="cmain"><div class="ttl">Write API spec doc — checkout endpoints</div>
+              <div class="meta"><span class="m" style="background:#e0794e">S</span>Sam · drafting…</div></div>
+            <span class="pill run"><span class="d"></span>Running</span>
+          </div>
+          <div class="why">Heard "write up a one-page API spec for the checkout endpoints" → categorized <b>doc</b>, generating outline now.</div>
+        </div>
+
+        <div class="card">
+          <div class="crow">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></div>
+            <div class="cmain"><div class="ttl">Book design review — Thursday 2:00 PM</div>
+              <div class="meta"><span class="m" style="background:#4b8ff0">A</span>Alex · invite sent</div></div>
+            <span class="pill done"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 13 4 4L19 7"/></svg>Done</span>
+          </div>
+          <div class="why">Extracted time and attendees from "book a design review for Thursday at 2pm" → invited the <b>design team</b>.</div>
+        </div>
+
+        <div class="card">
+          <div class="crow">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 3a8 8 0 1 0 5.3 14l4.7 4.7"/></svg></div>
+            <div class="cmain"><div class="ttl">Research competitor analytics pricing</div>
+              <div class="meta"><span class="m" style="background:#e0794e">S</span>Sam · brief ready</div></div>
+            <span class="pill done"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 13 4 4L19 7"/></svg>Done</span>
+          </div>
+          <div class="why"><b>Brief ready:</b> 3 comparables, $12–29/seat range with feature notes.</div>
+        </div>
+
+        <div class="card">
+          <div class="crow">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v12H8l-4 4z"/></svg></div>
+            <div class="cmain"><div class="ttl">Notify #frontend: endpoints ready Friday</div>
+              <div class="meta"><span class="m" style="background:#8b8b98">·</span>queued</div></div>
+            <span class="pill queue"><span class="d"></span>Queued</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

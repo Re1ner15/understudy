@@ -1,0 +1,13 @@
+MARCUS: Rachel, thanks for joining us today. Elena and I are excited to walk you through how Understudy can support FintechCorp's real-time meeting governance.
+RACHEL: Thanks Marcus. We're very interested, but as you know, compliance and latency SLAs are non-negotiable for us in financial services.
+ELENA: Absolutely. Our infrastructure is fully tenant-isolated, and all processing meets SOC2 Type II standards with end-to-end encryption.
+RACHEL: That's great to hear. Could you send over your SOC2 report along with details on enterprise volume pricing?
+MARCUS: I'll email you the SOC2 compliance report and enterprise pricing tier breakdown this afternoon, Rachel.
+RACHEL: Wonderful. Also, our trading workflow requires webhooks to deliver payloads within 50 milliseconds at 99.99% availability. Can your webhooks handle that?
+ELENA: Our core broker is sub-20ms, but I will research our webhook delivery latency metrics and benchmark them against your 99.99% SLA requirement to give you exact numbers.
+RACHEL: Perfect. If the metrics look good, we'd like to run a two-week pilot in our staging environment.
+ELENA: I'll draft a custom proof-of-concept scope document for FintechCorp outlining the pilot deliverables by Thursday.
+MARCUS: And let's get your security team aligned early. Let's schedule a technical deep dive demo with your SecOps team for next Tuesday at 11am.
+RACHEL: Tuesday at 11am works well for our SecOps leads. Send the invite over.
+MARCUS: Excellent. Looking forward to our partnership, Rachel!
+RACHEL: Talk soon, everyone.

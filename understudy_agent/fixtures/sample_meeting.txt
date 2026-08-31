@@ -1,0 +1,16 @@
+Alice: Hey everyone, how was the weekend?
+Bob: Good, good. Just relaxed and caught up on some reading.
+Charlie: Same here. Ready to jump into this week's sprint.
+Alice: Great. Before we do status updates, I think our current UI looks a bit dated to be honest.
+Bob: Yeah I agree, it could use a refresh, maybe next quarter.
+Alice: Anyway, let's get started. Bob, can you give an update on the vendor integration?
+Bob: It's going okay, but they changed their pricing tiers. I'll email the vendor about pricing later today to get clarity.
+Alice: Sounds good. We should also look into alternatives. Charlie, we should research competitor pricing by next Monday.
+Charlie: Got it, I can take that on. Oh, and about the new checkout flow - we need to finalize the design. Let's book a design review for Thursday.
+Alice: I can send that invite out. 
+Bob: Also, the frontend team was asking about the backend endpoints for checkout. Can someone write up the API spec doc?
+Charlie: I'll do it. I'll write the API spec doc before the design review.
+Alice: Thanks Charlie. One more thing, I noticed the app crashed when I tried logging out and in quickly.
+Bob: Oh really? That's not good. I'll file a bug for the login crash right after this meeting.
+Alice: Awesome. I think that covers everything for today. I'm going to grab a coffee.
+Charlie: See you all later!

@@ -1,0 +1,47 @@
+# Git and VCS
+.git/
+.gitignore
+
+# Python virtual environments and caches
+venv/
+.venv/
+env/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+
+# Environment variable files containing secrets
+.env
+.env.*
+understudy_agent/.env
+!*.env.example
+!*.env.production.example
+
+# Node / Frontend assets (container runs Python backend)
+node_modules/
+web/node_modules/
+web/dist/
+web/build/
+web/
+
+# OS and IDE files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local logs and debug data
+*.log
+firestore-debug.log
+.gstack/
+.adk/
+understudy_agent/.adk/
+
+# Desktop listener artifacts and design reference
+desktop/
+design-reference/
+docs/

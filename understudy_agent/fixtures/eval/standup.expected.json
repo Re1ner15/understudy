@@ -1,0 +1,22 @@
+[
+  {
+    "text": "Fix redis caching memory leak on the worker node",
+    "category": "task",
+    "assignee": "Maya"
+  },
+  {
+    "text": "Update runbook on cache cluster failover procedures",
+    "category": "doc",
+    "assignee": "Maya"
+  },
+  {
+    "text": "Schedule architecture deep dive on Redis eviction policies for Wednesday at 3pm",
+    "category": "calendar",
+    "assignee": "David"
+  },
+  {
+    "text": "Post updated deployment schedule to #releases channel on Slack",
+    "category": "slack",
+    "assignee": "Priya"
+  }
+]

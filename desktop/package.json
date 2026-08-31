@@ -1,0 +1,29 @@
+{
+  "name": "understudy-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Understudy companion desktop wrapper",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.understudy.app",
+    "productName": "Understudy",
+    "mac": {
+      "icon": "assets/understudy.icns"
+    },
+    "win": {
+      "icon": "assets/understudy-icon.png"
+    },
+    "linux": {
+      "icon": "assets/understudy-icon.png"
+    }
+  },
+  "devDependencies": {
+    "electron": "^34.2.0",
+    "electron-builder": "^25.1.8"
+  }
+}
+

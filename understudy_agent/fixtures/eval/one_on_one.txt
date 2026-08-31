@@ -1,0 +1,13 @@
+SARAH: Hey Liam, how's your week going? How are you feeling about the workload?
+LIAM: Hey Sarah. Overall pretty good. The streaming pipeline changes are stabilized. I've been thinking a lot about the career goals we discussed last month around technical leadership.
+SARAH: That's great. To make sure we're aligned on expectations for staff level, can you draft a Q4 career development plan with specific skill milestones?
+LIAM: Absolutely, I'll write up that career development plan doc by Friday.
+SARAH: Perfect. Also, did you still want to attend PyCon in November to present our distributed tracing architecture?
+LIAM: Definitely, CFP deadline is coming up fast.
+SARAH: I'll email HR today regarding travel budget approval for PyCon so we can lock in the early bird registration.
+LIAM: Thanks Sarah! One other thing: I'd love more regular touchpoints with our Principal Architect, Marcus, to bounce system design ideas off him.
+SARAH: Good idea. I will schedule a bi-weekly mentorship recurring sync with Marcus for you.
+LIAM: That would be super helpful. Lastly, my pull request for the telemetry metrics refactor is ready for final review.
+SARAH: I'll review and approve your telemetry refactor pull request before end of day.
+LIAM: Appreciate it. That's all from my side!
+SARAH: Great chat Liam, talk soon.

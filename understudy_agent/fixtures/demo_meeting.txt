@@ -1,0 +1,18 @@
+ALEX: Morning Sam. Quick sync before the week kicks off, should take five minutes.
+SAM: Perfect, I've got a hard stop at ten. Go.
+ALEX: First, the Acme vendor thing. They bumped their pricing tiers again over the weekend.
+SAM: Ugh, again? Okay.
+ALEX: Yeah. I'll email Acme today to get clarity on the new tiers and ask if we qualify for a bulk discount.
+SAM: Good. And we should have a backup - can you research what two or three competitors charge for a comparable analytics add-on? Just a quick lay of the land.
+ALEX: Makes sense, I'll pull that together.
+SAM: Next, checkout. The frontend team is blocked on us, they need the API contract.
+ALEX: Right. Can you write up a one-page API spec doc for the checkout endpoints so they can start?
+SAM: I'll draft it this morning.
+ALEX: And let's get everyone in a room on it - book a design review for Thursday at 2pm with the design team.
+SAM: Done. Oh, also ping the frontend team on Slack that the endpoints will be ready by Friday.
+ALEX: Will do. Last thing, I hit a nasty bug this weekend. The app crashes if you log out and back in quickly.
+SAM: Oof. Repro every time?
+ALEX: Pretty much. Let's file a bug for the login crash so it doesn't slip.
+SAM: Agreed. I still think the dashboard UI looks a little dated, by the way, but that's a next-quarter problem.
+ALEX: Ha, noted. That's everything, thanks Sam.
+SAM: Later!

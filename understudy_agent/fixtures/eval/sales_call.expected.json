@@ -1,0 +1,22 @@
+[
+  {
+    "text": "Email Rachel the SOC2 compliance report and enterprise pricing tier breakdown",
+    "category": "email",
+    "assignee": "Marcus"
+  },
+  {
+    "text": "Research webhook delivery latency guarantees against the 99.99% SLA requirement",
+    "category": "research",
+    "assignee": "Elena"
+  },
+  {
+    "text": "Draft a custom proof-of-concept scope document for FintechCorp",
+    "category": "doc",
+    "assignee": "Elena"
+  },
+  {
+    "text": "Schedule a technical deep dive demo with the SecOps team for next Tuesday at 11am",
+    "category": "calendar",
+    "assignee": "Marcus"
+  }
+]

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+  body{margin:0;background:#f6f7f4;font-family:Inter,system-ui,sans-serif;padding:28px}
+  h1{font-size:22px;color:#191c18;margin:0 0 2px;letter-spacing:-.02em}
+  .sub{color:#61665d;font-size:13.5px;margin-bottom:18px}
+  .mermaid{background:#f6f7f4}
+</style>
+</head>
+<body>
+<h1>Understudy — Architecture</h1>
+<div class="sub">Live meeting agent · Gemini 3.5 Flash + ADK on Google Cloud · audio stays on-device</div>
+<pre class="mermaid">
+flowchart TB
+  classDef local fill:#eef2ee,stroke:#c9d4c9,color:#1b3a2b;
+  classDef gcp fill:#eaf2fb,stroke:#bcd4ef,color:#123;
+  classDef data fill:#fff5e6,stroke:#e6c98a,color:#3a2c10;
+  classDef ext fill:#efeafb,stroke:#cfc0ee,color:#2a1a45;
+
+  subgraph LOCAL["User's Mac (local, no cloud)"]
+    MIC["Microphone"] --> LIS["Listener<br/>VAD + faster-whisper<br/><i>audio never leaves device</i>"]
+    COMP["Companion<br/>always-on-top widget"]
+  end
+
+  subgraph GCP["Google Cloud"]
+    subgraph RUN["Cloud Run — Agent backend (Google ADK)"]
+      WATCH["Watcher agent<br/>transcript to action items"] --> ORCH["Orchestrator<br/>ParallelAgent (fan-out)"]
+      ORCH --> TOOLS["Tool agents<br/>email · calendar · doc<br/>research · slack · task"]
+    end
+    VERTEX["Vertex AI<br/>Gemini 3.5 Flash"]
+    FS[("Firestore<br/>commitment ledger<br/>+ meeting state")]
+    SCHED["Cloud Scheduler"] --> SCAN["Follow-up scanner<br/>chases + escalates"]
+  end
+
+  SLACK["Slack<br/>feed · approvals · nudges"]
+  DASH["Web Dashboard<br/>live view + commitments board"]
+
+  LIS -->|"transcript text (HTTPS)"| WATCH
+  WATCH -.->|Gemini| VERTEX
+  TOOLS -.->|Gemini| VERTEX
+  TOOLS -->|persist| FS
+  SCAN --> FS
+  SCAN -->|overdue nudges| SLACK
+  TOOLS -->|feed + approval reqs| SLACK
+  SLACK -->|button clicks| RUN
+  FS -->|onSnapshot realtime| DASH
+  FS -->|onSnapshot realtime| COMP
+
+  class MIC,LIS,COMP local;
+  class RUN,WATCH,ORCH,TOOLS,SCHED,SCAN,GCP gcp;
+  class VERTEX,FS data;
+  class SLACK,DASH ext;
+</pre>
+<script>mermaid.initialize({startOnLoad:true, theme:'base', themeVariables:{fontFamily:'Inter, system-ui, sans-serif', fontSize:'14px'}});</script>
+</body>
+</html>

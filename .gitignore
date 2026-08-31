@@ -1,0 +1,21 @@
+.env
+__pycache__/
+*.pyc
+venv/
+.DS_Store
+.adk/
+*.db
+node_modules/
+dist/
+*-debug.log
+firebase-debug.log
+firestore-debug.log
+.gstack/
+token.json
+client_secret.json
+understudy_agent/token.json
+understudy_agent/client_secret.json
+
+# recording artifacts
+recording/videos/
+*.webm

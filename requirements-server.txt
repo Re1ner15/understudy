@@ -1,0 +1,11 @@
+google-adk==2.8.0
+google-cloud-firestore==2.29.0
+slack_bolt==1.30.0
+python-dotenv==1.2.3
+fastapi==0.141.1
+uvicorn==0.52.4
+google-api-python-client==2.164.0
+google-auth==2.57.0
+google-auth-oauthlib==1.2.1
+certifi==2024.8.30
+google-genai==2.20.0

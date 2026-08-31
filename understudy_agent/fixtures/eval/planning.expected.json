@@ -1,0 +1,22 @@
+[
+  {
+    "text": "Research mobile onboarding drop-off patterns and benchmark competitor flows",
+    "category": "research",
+    "assignee": "Ben"
+  },
+  {
+    "text": "Finalize PRD specifications for the multi-tenant workspace feature",
+    "category": "doc",
+    "assignee": "Jordan"
+  },
+  {
+    "text": "Create Jira sprint backlog tickets for the auth migration milestone",
+    "category": "task",
+    "assignee": "Chloe"
+  },
+  {
+    "text": "Share finalized sprint goals and timeline in #product-announcements Slack channel",
+    "category": "slack",
+    "assignee": "Jordan"
+  }
+]

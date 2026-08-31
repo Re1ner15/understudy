@@ -1,0 +1,22 @@
+[
+  {
+    "text": "Draft a Q4 career development plan with specific skill milestones",
+    "category": "doc",
+    "assignee": "Liam"
+  },
+  {
+    "text": "Email HR regarding travel budget approval for PyCon",
+    "category": "email",
+    "assignee": "Sarah"
+  },
+  {
+    "text": "Schedule a bi-weekly mentorship recurring sync with Marcus",
+    "category": "calendar",
+    "assignee": "Sarah"
+  },
+  {
+    "text": "Review and approve the telemetry refactor pull request",
+    "category": "task",
+    "assignee": "Sarah"
+  }
+]
