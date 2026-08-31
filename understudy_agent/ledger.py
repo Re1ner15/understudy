@@ -89,6 +89,7 @@ def update_action_status(
     status: str,
     reasoning: Optional[str] = None,
     artifact: Optional[str] = None,
+    requires_approval: Optional[bool] = None,
 ) -> None:
     """Updates status and optional reasoning/artifact for a live action.
 
@@ -103,6 +104,8 @@ def update_action_status(
         updates["reasoning"] = reasoning
     if artifact is not None:
         updates["artifact"] = artifact
+    if requires_approval is not None:
+        updates["requiresApproval"] = requires_approval
     try:
         db.collection("meetings").document(meeting_id).collection("actions").document(action_id).update(updates)
     except _gexc.NotFound:

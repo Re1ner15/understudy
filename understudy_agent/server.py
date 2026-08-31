@@ -413,7 +413,7 @@ async def extract_action_items(full_transcript: str) -> List[ActionItem]:
             )
 
         # Check for PII test trigger
-        if "post the api key" in transcript_lower or "share the api key" in transcript_lower or "share internal api key" in transcript_lower or "aizasy" in transcript_lower:
+        if "post the api key" in transcript_lower or "share the api key" in transcript_lower or "share internal api key" in transcript_lower or "production api key" in transcript_lower or "aiza" in transcript_lower:
             extracted.append(
                 ActionItem(
                     id="ai-pii-test",
@@ -618,7 +618,7 @@ async def resume_clarification_execution(meeting_id: str, clarification_id: str,
         if not guard_res.safe:
             final_status = "needs_approval"
             final_requires_approval = True
-            flag_text = "🛡️ Held for your review — " + "; ".join(guard_res.reasons) + "."
+            flag_text = "🛡️ Model Armor Guardrail — Held for your review — " + "; ".join(guard_res.reasons) + "."
             final_reasoning = flag_text
             logger.warning(f"Guardrail flagged resumed action '{act_id}': {guard_res.reasons}. Forcing needs_approval.")
 
@@ -629,6 +629,7 @@ async def resume_clarification_execution(meeting_id: str, clarification_id: str,
             status=final_status,
             reasoning=final_reasoning,
             artifact=tool_result.artifact,
+            requires_approval=final_requires_approval,
         )
         updated_action_dict = ledger.get_action(meeting_id, act_id)
         if updated_action_dict:
@@ -1013,7 +1014,7 @@ async def run_pipeline_for_meeting(meeting_id: str):
                     if not guard_res.safe:
                         final_status = "needs_approval"
                         final_requires_approval = True
-                        final_reasoning = "🛡️ Held for your review — " + "; ".join(guard_res.reasons) + "."
+                        final_reasoning = "🛡️ Model Armor Guardrail — Held for your review — " + "; ".join(guard_res.reasons) + "."
                         logger.warning(f"Guardrail flagged action '{act_id}': {guard_res.reasons}. Forcing needs_approval.")
 
                     ledger.update_action_status(
@@ -1022,6 +1023,7 @@ async def run_pipeline_for_meeting(meeting_id: str):
                         status=final_status,
                         reasoning=final_reasoning,
                         artifact=tool_result.artifact,
+                        requires_approval=final_requires_approval,
                     )
 
                     updated_action_dict = ledger.get_action(meeting_id, act_id)

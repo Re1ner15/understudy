@@ -149,12 +149,12 @@ class TestModelArmorGuardrail(unittest.TestCase):
         # 3. Email PII
         res = guardrail.scan_for_pii("Please contact confidential.lead@secret-domain.org for access")
         self.assertFalse(res["safe"])
-        self.assertTrue(any("email addresses" in r for r in res["reasons"]))
+        self.assertTrue(any("email address" in r for r in res["reasons"]))
 
         # 4. Phone number PII
         res = guardrail.scan_for_pii("Call me at 415-555-2671 when done")
         self.assertFalse(res["safe"])
-        self.assertTrue(any("phone numbers" in r for r in res["reasons"]))
+        self.assertTrue(any("phone number" in r for r in res["reasons"]))
 
         # 5. Clean text passes
         res = guardrail.scan_for_pii("Write up a one-page API spec doc for checkout endpoints")
